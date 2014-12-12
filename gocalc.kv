@@ -1,0 +1,83 @@
+#:kivy 1.7.1
+
+<GoCalc>:
+    orientation: 'vertical'
+    Label:
+        text: 'Japanese Rules'
+    BoxLayout:
+        orientation: 'horizontal'
+        canvas.before:
+            Color:
+                rgba: 0.1, 0.1, 0.1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Territory'
+            TextInput:
+                id: b_terr
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Prisoners'
+            TextInput:
+                id: b_pris
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Dead Stones'
+            TextInput:
+                id: b_dead
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Score'
+            Label:
+                text: str(root.iz(b_terr.text) + root.iz(b_pris.text) + (2 * root.iz(b_dead.text)))
+    BoxLayout:
+        orientation: 'horizontal'
+        canvas.before:
+            Color:
+                rgba: 0.9, 0.9, 0.9, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Territory'
+            TextInput:
+                id: w_terr
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Prisoners'
+            TextInput:
+                id: w_pris
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Dead Stones'
+            TextInput:
+                id: w_dead
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Komi'
+            TextInput:
+                id: w_komi
+                text: '0'
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Score'
+            Label:
+                text: str(root.iz(w_terr.text) + root.iz(w_pris.text) + (2 * root.iz(w_dead.text)) + root.fz(w_komi.text))

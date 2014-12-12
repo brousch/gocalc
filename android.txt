@@ -1,0 +1,3 @@
+title=Go Calculator
+author=Feral Rooster
+orientation=landscape
