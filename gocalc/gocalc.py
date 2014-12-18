@@ -6,8 +6,8 @@ kivy.require('1.8.0')
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 
-from utils import fz
-from utils import iz
+from libs.convnz import fz
+from libs.convnz import iz
 
 
 __version__ = '0.0.1'

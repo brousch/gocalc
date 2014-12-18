@@ -2,8 +2,8 @@
 
 def iz(x):
     '''
-    :param x: Integer or None
-    :return: Value of x as integer 0
+    :param x: string with integer, integer, or None
+    :return: Value of x as integer or 0
     '''
     try:
         return int(x)
@@ -12,7 +12,7 @@ def iz(x):
 
 def fz(x):
     '''
-    :param x: Float or None
+    :param x: string with float, float, or None
     :return: Value of x as float or 0
     '''
     try:
