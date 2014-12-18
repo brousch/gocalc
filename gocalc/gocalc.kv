@@ -1,7 +1,28 @@
-#:kivy 1.7.1
+#:kivy 1.8.0
 
 #:set color_dk_gray 0.1, 0.1, 0.1, 1
 #:set color_lt_gray 0.9, 0.9, 0.9, 1
+
+<PartBox@BoxLayout>:
+    orientation: 'vertical'
+    size_hint_x: 0.2
+    colour: 0,0,0,0
+    title: ''
+    Label:
+        text: root.title
+        color: root.colour
+    TextInput:
+        id: ti
+        text: '0'
+
+
+<PartBoxW@PartBox>:
+    colour: color_lt_gray
+
+
+<PartBoxB@PartBox>:
+    colour: color_dk_gray
+
 
 <GoCalc>:
     orientation: 'vertical'
@@ -15,33 +36,15 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Territory'
-                color: color_lt_gray
-            TextInput:
-                id: b_terr
-                text: '0'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Prisoners'
-                color: color_lt_gray
-            TextInput:
-                id: b_pris
-                text: '0'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Dead Stones'
-                color: color_lt_gray
-            TextInput:
-                id: b_dead
-                text: '0'
+        PartBoxW:
+            id: b_terr
+            title: 'Territory'
+        PartBoxW:
+            id: b_pris
+            title: 'Prisoners'
+        PartBoxW:
+            id: b_dead
+            title: 'Dead Stones'
         Label:
             size_hint_x: 0.2
         BoxLayout:
@@ -51,7 +54,7 @@
                 text: 'Score'
                 color: color_lt_gray
             Label:
-                text: root.calc_score(b_terr.text, b_pris.text, b_dead.text)
+                text: root.calc_score(b_terr.ids.ti.text, b_pris.ids.ti.text, b_dead.ids.ti.text)
                 color: color_lt_gray
     BoxLayout:
         orientation: 'horizontal'
@@ -61,42 +64,18 @@
             Rectangle:
                 pos: self.pos
                 size: self.size
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Territory'
-                color: color_dk_gray
-            TextInput:
-                id: w_terr
-                text: '0'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Prisoners'
-                color: color_dk_gray
-            TextInput:
-                id: w_pris
-                text: '0'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Dead Stones'
-                color: color_dk_gray
-            TextInput:
-                id: w_dead
-                text: '0'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Komi'
-                color: color_dk_gray
-            TextInput:
-                id: w_komi
-                text: '0'
+        PartBoxB:
+            id: w_terr
+            title: 'Territory'
+        PartBoxB:
+            id: w_pris
+            title: 'Prisoners'
+        PartBoxB:
+            id: w_dead
+            title: 'Dead Stones'
+        PartBoxB:
+            id: w_komi
+            title:  'Komi'
         BoxLayout:
             orientation: 'vertical'
             size_hint_x: 0.2
@@ -104,5 +83,5 @@
                 text: 'Score'
                 color: color_dk_gray
             Label:
-                text: root.calc_score(w_terr.text, w_pris.text, w_dead.text, w_komi.text)
+                text: root.calc_score(w_terr.ids.ti.text, w_pris.ids.ti.text, w_dead.ids.ti.text, w_komi.ids.ti.text)
                 color: color_dk_gray
