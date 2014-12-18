@@ -10,9 +10,6 @@ from libs.convnz import fz
 from libs.convnz import iz
 
 
-__version__ = '0.0.1'
-
-
 class GoCalc(BoxLayout):
     def calc_score(self, terr, pris, dead, komi=0):
         '''
