@@ -1,19 +1,27 @@
 #:kivy 1.8.0
 
+#:set font_size_large 24
+#:set font_size_normal 12
 #:set color_dk_gray 0.1, 0.1, 0.1, 1
 #:set color_lt_gray 0.9, 0.9, 0.9, 1
+
+<CenteredLabel@Label>:
+    text_size: self.size
+    halign: 'center'
+
 
 <PartBox@BoxLayout>:
     orientation: 'vertical'
     size_hint_x: 0.2
     colour: 0,0,0,0
     title: ''
-    Label:
+    CenteredLabel:
         text: root.title
         color: root.colour
     TextInput:
         id: ti
         text: '0'
+        valign: 'middle'
 
 
 <PartBoxW@PartBox>:
@@ -23,13 +31,32 @@
 <PartBoxB@PartBox>:
     colour: color_dk_gray
 
+<ScoreBox@BoxLayout>:
+    orientation: 'vertical'
+    size_hint_x: 0.2
+    colour: 0,0,0,0
+    score: ''
+    CenteredLabel:
+        text: 'Score'
+        color: root.colour
+    CenteredLabel:
+        text: root.score
+        color: root.colour
+        valign: 'middle'
+
 
 <GoCalc>:
     orientation: 'vertical'
-    Label:
+    CenteredLabel:
         text: 'Japanese Rules'
+        font_size: '24dp'
+        valign: 'middle'
+        size_hint_y: None
+        height: sp(font_size_large) * 3
     BoxLayout:
         orientation: 'horizontal'
+        size_hint_y: None
+        height: sp(font_size_normal) * 6
         canvas.before:
             Color:
                 rgba: color_dk_gray
@@ -47,17 +74,13 @@
             title: 'Dead Stones'
         Label:
             size_hint_x: 0.2
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Score'
-                color: color_lt_gray
-            Label:
-                text: root.calc_score(b_terr.ids.ti.text, b_pris.ids.ti.text, b_dead.ids.ti.text)
-                color: color_lt_gray
+        ScoreBox:
+            colour: color_lt_gray
+            score: root.calc_score(b_terr.ids.ti.text, b_pris.ids.ti.text, b_dead.ids.ti.text)
     BoxLayout:
         orientation: 'horizontal'
+        size_hint_y: None
+        height: sp(font_size_normal) * 6
         canvas.before:
             Color:
                 rgba: color_lt_gray
@@ -76,12 +99,8 @@
         PartBoxB:
             id: w_komi
             title:  'Komi'
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint_x: 0.2
-            Label:
-                text: 'Score'
-                color: color_dk_gray
-            Label:
-                text: root.calc_score(w_terr.ids.ti.text, w_pris.ids.ti.text, w_dead.ids.ti.text, w_komi.ids.ti.text)
-                color: color_dk_gray
+        ScoreBox:
+            colour: color_dk_gray
+            score: root.calc_score(w_terr.ids.ti.text, w_pris.ids.ti.text, w_dead.ids.ti.text, w_komi.ids.ti.text)
+    Label:
+        text: ''
