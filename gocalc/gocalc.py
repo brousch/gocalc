@@ -4,7 +4,9 @@ import kivy
 kivy.require('1.8.0')
 
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.textinput import TextInput
 
 from libs.convnz import fz
 from libs.convnz import iz
@@ -20,6 +22,18 @@ class GoCalc(BoxLayout):
         :return: score as string
         '''
         return(str(iz(terr) + iz(pris) + (2 * iz(dead)) + fz(komi)))
+
+
+class StoneInput(TextInput):
+    def focus_changed(self):
+        '''
+        If focus is entering, select all the text.
+        If focus is leaving, deselect everything.
+        '''
+        if self.focus:
+            Clock.schedule_once(lambda dt: self.select_all())
+        else:
+            self.cancel_selection()
 
 
 class GoCalcApp(App):

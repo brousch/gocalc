@@ -1,106 +1,101 @@
 #:kivy 1.8.0
 
-#:set font_size_large 24
-#:set font_size_normal 12
+#: import Clock kivy.clock.Clock
+
+#:set font_size_xl 24
+#:set font_size_l 18
+#:set font_size_m 12
 #:set color_dk_gray 0.1, 0.1, 0.1, 1
+#:set color_md_gray 0.5, 0.5, 0.5, 1
 #:set color_lt_gray 0.9, 0.9, 0.9, 1
 
+
 <CenteredLabel@Label>:
+    bgcolor: 0.5, 0.5, 0.5, 1
+    canvas.before:
+        Color:
+            rgba: self.bgcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
     text_size: self.size
     halign: 'center'
+    valign: 'middle'
 
 
-<PartBox@BoxLayout>:
-    orientation: 'vertical'
-    size_hint_x: 0.2
-    colour: 0,0,0,0
-    title: ''
-    CenteredLabel:
-        text: root.title
-        color: root.colour
-    TextInput:
-        id: ti
-        text: '0'
-        valign: 'middle'
+<ScoreRowLayout@BoxLayout>:
+    bgcolor: 0.5, 0.5, 0.5, 1
+    canvas.before:
+        Color:
+            rgba: self.bgcolor
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'horizontal'
+    padding: sp(font_size_m) / 2
+    spacing: sp(font_size_m) / 2
 
 
-<PartBoxW@PartBox>:
-    colour: color_lt_gray
-
-
-<PartBoxB@PartBox>:
-    colour: color_dk_gray
-
-<ScoreBox@BoxLayout>:
-    orientation: 'vertical'
-    size_hint_x: 0.2
-    colour: 0,0,0,0
-    score: ''
-    CenteredLabel:
-        text: 'Score'
-        color: root.colour
-    CenteredLabel:
-        text: root.score
-        color: root.colour
-        valign: 'middle'
+<StoneInput@TextInput>:
+    multiline: False
+    text: '0'
+    valign: 'middle'
+    on_focus: self.focus_changed()
 
 
 <GoCalc>:
     orientation: 'vertical'
     CenteredLabel:
         text: 'Japanese Rules'
-        font_size: '24dp'
-        valign: 'middle'
+        font_size: font_size_xl
         size_hint_y: None
-        height: sp(font_size_large) * 3
+        height: sp(font_size_xl) * 3
     BoxLayout:
-        orientation: 'horizontal'
+        orientation: 'vertical'
         size_hint_y: None
-        height: sp(font_size_normal) * 6
-        canvas.before:
-            Color:
-                rgba: color_dk_gray
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        PartBoxW:
-            id: b_terr
-            title: 'Territory'
-        PartBoxW:
-            id: b_pris
-            title: 'Prisoners'
-        PartBoxW:
-            id: b_dead
-            title: 'Dead Stones'
-        Label:
-            size_hint_x: 0.2
-        ScoreBox:
-            colour: color_lt_gray
-            score: root.calc_score(b_terr.ids.ti.text, b_pris.ids.ti.text, b_dead.ids.ti.text)
-    BoxLayout:
-        orientation: 'horizontal'
-        size_hint_y: None
-        height: sp(font_size_normal) * 6
-        canvas.before:
-            Color:
-                rgba: color_lt_gray
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        PartBoxB:
-            id: w_terr
-            title: 'Territory'
-        PartBoxB:
-            id: w_pris
-            title: 'Prisoners'
-        PartBoxB:
-            id: w_dead
-            title: 'Dead Stones'
-        PartBoxB:
-            id: w_komi
-            title:  'Komi'
-        ScoreBox:
-            colour: color_dk_gray
-            score: root.calc_score(w_terr.ids.ti.text, w_pris.ids.ti.text, w_dead.ids.ti.text, w_komi.ids.ti.text)
+        height: sp(font_size_m) * 11
+        ScoreRowLayout:
+            bgcolor: color_dk_gray
+            font_size: font_size_l
+            padding: '1sp'
+            spacing: '1sp'
+            CenteredLabel:
+                text: 'Territory'
+            CenteredLabel:
+                text: 'Prisoners'
+            CenteredLabel:
+                text: 'Dead Stones'
+            CenteredLabel:
+                text: 'Komi'
+            CenteredLabel:
+                text: 'Score'
+        ScoreRowLayout:
+            bgcolor: color_dk_gray
+            StoneInput:
+                id: terr_b
+            StoneInput:
+                id: pris_b
+            StoneInput:
+                id: dead_b
+            CenteredLabel:
+                bgcolor: color_dk_gray
+            CenteredLabel:
+                text: root.calc_score(terr_b.text, pris_b.text, dead_b.text)
+                bgcolor: color_dk_gray
+                color: color_lt_gray
+        ScoreRowLayout:
+            bgcolor: color_lt_gray
+            StoneInput:
+                id: terr_w
+            StoneInput:
+                id: pris_w
+            StoneInput:
+                id: dead_w
+            StoneInput:
+                id: komi_w
+            CenteredLabel:
+                text: root.calc_score(terr_w.text, pris_w.text, dead_w.text, komi_w.text)
+                bgcolor: color_lt_gray
+                color: color_dk_gray
     Label:
         text: ''
