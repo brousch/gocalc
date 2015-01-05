@@ -36,8 +36,8 @@
             pos: self.pos
             size: self.size
     orientation: 'horizontal'
-    padding: sp(font_size_m) / 2
-    spacing: sp(font_size_m) / 2
+    padding: dp(font_size_m) / 2
+    spacing: dp(font_size_m) / 2
 
 
 <StoneInput@TextInput>:
@@ -52,12 +52,12 @@
     title: ''
     orientation: 'horizontal'
     size_hint_y: None
-    height: sp(font_size_xl) * 3
+    height: dp(font_size_xl) * 3
     Button:
         text: '<'
         font_size: font_size_xl
         size_hint_x: None
-        width: sp(font_size_xl) * 2
+        width: dp(font_size_xl) * 2
         on_press: app.root.content.current = 'Title'
     CenteredLabel:
         text: self.parent.title
@@ -67,26 +67,26 @@
 
 <TitleScreen>:
     BoxLayout:
-        padding: sp(font_size_m) / 2
-        spacing: sp(font_size_m) / 2
+        padding: dp(font_size_m) / 2
+        spacing: dp(font_size_m) / 2
         orientation: 'vertical'
         CenteredLabel:
             text: 'Go Score Calculator'
             font_size: font_size_xl
             size_hint_y: None
-            height: sp(font_size_xl) * 3
+            height: dp(font_size_xl) * 3
             bgcolor: 0, 0, 0, 1
         Button:
             text: 'Japanese Rules'
             font_size: font_size_l
             size_hint_y: None
-            height: sp(font_size_l) * 3
+            height: dp(font_size_l) * 3
             on_press: app.root.content.current = 'JapaneseCalc'
         Button:
             text: 'Chinese Rules'
             font_size: font_size_l
             size_hint_y: None
-            height: sp(font_size_l) * 3
+            height: dp(font_size_l) * 3
             on_press: app.root.content.current = 'ChineseCalc'
         Label:
             text: ''
@@ -100,7 +100,7 @@
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: sp(font_size_m) * 11
+            height: dp(font_size_m) * 11
             ScoreRowLayout:
                 bgcolor: color_dk_gray
                 font_size: font_size_l
@@ -155,7 +155,7 @@
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: sp(font_size_m) * 11
+            height: dp(font_size_m) * 11
             ScoreRowLayout:
                 bgcolor: color_dk_gray
                 font_size: font_size_l
