@@ -10,6 +10,10 @@
 #:set color_lt_gray 0.9, 0.9, 0.9, 1
 
 
+<GoCalc>:
+    orientation: 'vertical'
+
+
 <CenteredLabel@Label>:
     bgcolor: 0.5, 0.5, 0.5, 1
     canvas.before:
@@ -41,61 +45,166 @@
     text: '0'
     valign: 'middle'
     on_focus: self.focus_changed()
+    on_focus: app.root.content.current_screen.calc_score()
 
 
-<GoCalc>:
-    orientation: 'vertical'
-    CenteredLabel:
-        text: 'Japanese Rules'
+<RuleTitle@BoxLayout>:
+    title: ''
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: sp(font_size_xl) * 3
+    Button:
+        text: '<'
         font_size: font_size_xl
-        size_hint_y: None
-        height: sp(font_size_xl) * 3
+        size_hint_x: None
+        width: sp(font_size_xl) * 2
+        on_press: app.root.content.current = 'Title'
+    CenteredLabel:
+        text: self.parent.title
+        font_size: font_size_xl
+        bgcolor: 0, 0, 0, 1
+
+
+<TitleScreen>:
+    BoxLayout:
+        padding: sp(font_size_m) / 2
+        spacing: sp(font_size_m) / 2
+        orientation: 'vertical'
+        CenteredLabel:
+            text: 'Go Score Calculator'
+            font_size: font_size_xl
+            size_hint_y: None
+            height: sp(font_size_xl) * 3
+            bgcolor: 0, 0, 0, 1
+        Button:
+            text: 'Japanese Rules'
+            font_size: font_size_l
+            size_hint_y: None
+            height: sp(font_size_l) * 3
+            on_press: app.root.content.current = 'JapaneseCalc'
+        Button:
+            text: 'Chinese Rules'
+            font_size: font_size_l
+            size_hint_y: None
+            height: sp(font_size_l) * 3
+            on_press: app.root.content.current = 'ChineseCalc'
+        Label:
+            text: ''
+
+
+<JapaneseCalcScreen>:
     BoxLayout:
         orientation: 'vertical'
-        size_hint_y: None
-        height: sp(font_size_m) * 11
-        ScoreRowLayout:
-            bgcolor: color_dk_gray
-            font_size: font_size_l
-            padding: '1sp'
-            spacing: '1sp'
-            CenteredLabel:
-                text: 'Territory'
-            CenteredLabel:
-                text: 'Prisoners'
-            CenteredLabel:
-                text: 'Dead Stones'
-            CenteredLabel:
-                text: 'Komi'
-            CenteredLabel:
-                text: 'Score'
-        ScoreRowLayout:
-            bgcolor: color_dk_gray
-            StoneInput:
-                id: terr_b
-            StoneInput:
-                id: pris_b
-            StoneInput:
-                id: dead_b
-            CenteredLabel:
+        RuleTitle:
+            title: 'Japanese Rules'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: sp(font_size_m) * 11
+            ScoreRowLayout:
                 bgcolor: color_dk_gray
-            CenteredLabel:
-                text: root.calc_score(terr_b.text, pris_b.text, dead_b.text)
+                font_size: font_size_l
+                padding: '1sp'
+                spacing: '1sp'
+                CenteredLabel:
+                    text: 'Territory'
+                CenteredLabel:
+                    text: 'Prisoners'
+                CenteredLabel:
+                    text: 'Dead Stones'
+                CenteredLabel:
+                    text: 'Komi'
+                CenteredLabel:
+                    text: 'Score'
+            ScoreRowLayout:
                 bgcolor: color_dk_gray
-                color: color_lt_gray
-        ScoreRowLayout:
-            bgcolor: color_lt_gray
-            StoneInput:
-                id: terr_w
-            StoneInput:
-                id: pris_w
-            StoneInput:
-                id: dead_w
-            StoneInput:
-                id: komi_w
-            CenteredLabel:
-                text: root.calc_score(terr_w.text, pris_w.text, dead_w.text, komi_w.text)
+                StoneInput:
+                    id: terr_b
+                StoneInput:
+                    id: pris_b
+                StoneInput:
+                    id: dead_b
+                CenteredLabel:
+                    bgcolor: color_dk_gray
+                CenteredLabel:
+                    text: root.score_b
+                    bgcolor: color_dk_gray
+                    color: color_lt_gray
+            ScoreRowLayout:
                 bgcolor: color_lt_gray
-                color: color_dk_gray
-    Label:
-        text: ''
+                StoneInput:
+                    id: terr_w
+                StoneInput:
+                    id: pris_w
+                StoneInput:
+                    id: dead_w
+                StoneInput:
+                    id: komi
+                CenteredLabel:
+                    text: root.score_w
+                    bgcolor: color_lt_gray
+                    color: color_dk_gray
+        Label:
+            text: ''
+
+<ChineseCalcScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        RuleTitle:
+            title: 'Chinese Rules'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: sp(font_size_m) * 11
+            ScoreRowLayout:
+                bgcolor: color_dk_gray
+                font_size: font_size_l
+                padding: '1sp'
+                spacing: '1sp'
+                CenteredLabel:
+                    text: 'Territory'
+                CenteredLabel:
+                    text: 'Stones'
+                CenteredLabel:
+                    text: 'Dead Stones'
+                CenteredLabel:
+                    text: 'Komi'
+                CenteredLabel:
+                    text: 'Score'
+            ScoreRowLayout:
+                bgcolor: color_dk_gray
+                StoneInput:
+                    id: terr_b
+                    on_focus: root.calc_score()
+                StoneInput:
+                    id: ston_b
+                    on_focus: root.calc_score()
+                StoneInput:
+                    id: dead_b
+                    on_focus: root.calc_score()
+                CenteredLabel:
+                    bgcolor: color_dk_gray
+                CenteredLabel:
+                    text: root.score_b
+                    bgcolor: color_dk_gray
+                    color: color_lt_gray
+            ScoreRowLayout:
+                bgcolor: color_lt_gray
+                StoneInput:
+                    id: terr_w
+                    on_focus: root.calc_score()
+                StoneInput:
+                    id: ston_w
+                    on_focus: root.calc_score()
+                StoneInput:
+                    id: dead_w
+                    on_focus: root.calc_score()
+                StoneInput:
+                    id: komi
+                    on_focus: root.calc_score()
+                CenteredLabel:
+                    text: root.score_w
+                    bgcolor: color_lt_gray
+                    color: color_dk_gray
+        Label:
+            text: ''

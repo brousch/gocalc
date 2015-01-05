@@ -6,22 +6,24 @@ kivy.require('1.8.0')
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import FadeTransition
+from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.textinput import TextInput
 
-from libs.convnz import fz
-from libs.convnz import iz
+from screens import TitleScreen
+from screens import JapaneseCalcScreen
+from screens import ChineseCalcScreen
 
 
 class GoCalc(BoxLayout):
-    def calc_score(self, terr, pris, dead, komi=0):
-        '''
-        :param terr: territory as string or int
-        :param pris: prisoners as string or int
-        :param dead: dead stones as string or int
-        :param komi: komi as string or float
-        :return: score as string
-        '''
-        return(str(iz(terr) + iz(pris) + (2 * iz(dead)) + fz(komi)))
+    def __init__(self, **kwargs):
+        super(GoCalc, self).__init__(**kwargs)
+        self.content = ScreenManager()
+        self.content.transition = FadeTransition()
+        self.content.add_widget(TitleScreen(name='Title'))
+        self.content.add_widget(JapaneseCalcScreen(name='JapaneseCalc'))
+        self.content.add_widget(ChineseCalcScreen(name='ChineseCalc'))
+        self.add_widget(self.content)
 
 
 class StoneInput(TextInput):
