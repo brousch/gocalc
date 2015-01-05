@@ -2,9 +2,9 @@
 
 #: import Clock kivy.clock.Clock
 
-#:set font_size_xl 24
-#:set font_size_l 18
-#:set font_size_m 12
+#:set font_size_xl 26
+#:set font_size_l 22
+#:set font_size_m 18
 #:set color_dk_gray 0.1, 0.1, 0.1, 1
 #:set color_md_gray 0.5, 0.5, 0.5, 1
 #:set color_lt_gray 0.9, 0.9, 0.9, 1
@@ -23,6 +23,7 @@
             pos: self.pos
             size: self.size
     text_size: self.size
+    font_size: sp(font_size_m)
     halign: 'center'
     valign: 'middle'
 
@@ -36,14 +37,15 @@
             pos: self.pos
             size: self.size
     orientation: 'horizontal'
-    padding: dp(font_size_m) / 2
-    spacing: dp(font_size_m) / 2
+    padding: sp(font_size_m) / 2
+    spacing: sp(font_size_m) / 2
 
 
 <StoneInput@TextInput>:
     multiline: False
     text: '0'
     valign: 'middle'
+    font_size: sp(font_size_m)
     on_focus: self.focus_changed()
     on_focus: app.root.content.current_screen.calc_score()
 
@@ -52,12 +54,12 @@
     title: ''
     orientation: 'horizontal'
     size_hint_y: None
-    height: dp(font_size_xl) * 3
+    height: sp(font_size_xl) * 3
     Button:
         text: '<'
         font_size: font_size_xl
         size_hint_x: None
-        width: dp(font_size_xl) * 2
+        width: sp(font_size_xl) * 2
         on_press: app.root.content.current = 'Title'
     CenteredLabel:
         text: self.parent.title
@@ -67,26 +69,26 @@
 
 <TitleScreen>:
     BoxLayout:
-        padding: dp(font_size_m) / 2
-        spacing: dp(font_size_m) / 2
+        padding: sp(font_size_m) / 2
+        spacing: sp(font_size_m) / 2
         orientation: 'vertical'
         CenteredLabel:
             text: 'Go Score Calculator'
             font_size: font_size_xl
             size_hint_y: None
-            height: dp(font_size_xl) * 3
+            height: sp(font_size_xl) * 3
             bgcolor: 0, 0, 0, 1
         Button:
             text: 'Japanese Rules'
             font_size: font_size_l
             size_hint_y: None
-            height: dp(font_size_l) * 3
+            height: sp(font_size_l) * 3
             on_press: app.root.content.current = 'JapaneseCalc'
         Button:
             text: 'Chinese Rules'
             font_size: font_size_l
             size_hint_y: None
-            height: dp(font_size_l) * 3
+            height: sp(font_size_l) * 3
             on_press: app.root.content.current = 'ChineseCalc'
         Label:
             text: ''
@@ -100,7 +102,7 @@
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: dp(font_size_m) * 11
+            height: sp(font_size_m) * 11
             ScoreRowLayout:
                 bgcolor: color_dk_gray
                 font_size: font_size_l
@@ -155,7 +157,7 @@
         BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: dp(font_size_m) * 11
+            height: sp(font_size_m) * 11
             ScoreRowLayout:
                 bgcolor: color_dk_gray
                 font_size: font_size_l
